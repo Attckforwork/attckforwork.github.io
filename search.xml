@@ -80,7 +80,7 @@
       </tags>
   </entry>
   <entry>
-    <title>PHP CODE AUDIT - 0001 - AttckForWork</title>
+    <title>PHP CODE AUDIT QUESTIONS - 0001 - AttckForWork</title>
     <url>/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/</url>
     <content><![CDATA[<p>This php code was obtained during a code audit during my testing. I was very excited to see this, and decided to simulate it for everyone to learn.</p>
 <h4 id="KnowLedGePoint"><a href="#KnowLedGePoint" class="headerlink" title="KnowLedGePoint"></a>KnowLedGePoint</h4><ul>

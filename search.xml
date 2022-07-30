@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>First Page</title>
+    <url>/2022/07/29/First-Page/</url>
+    <content><![CDATA[<h1 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h1><div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new <span class="string">&quot;title&quot;</span></span><br></pre></td></tr></table></figure></div>
+<p>就会在<em>source/_posts/</em> 生成一个.md文件<br><em>tags</em>就是标签,多个tags这样排版</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">tags:</span><br><span class="line"> - test1</span><br><span class="line"> - test2</span><br><span class="line"> ....</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h1><p>直接写*.md<em>文件<br>使用</em>markdown*语法</p>
+<h1 id="删除文章直接删对应文件就行"><a href="#删除文章直接删对应文件就行" class="headerlink" title="删除文章直接删对应文件就行"></a>删除文章直接删对应文件就行</h1><p>文件路径<em>source/_posts/</em></p>
+]]></content>
+  </entry>
+</search>

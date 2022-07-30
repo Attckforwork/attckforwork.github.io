@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Attck For Work</title>
+  
+  
+  <link href="https://www.hack0day.net/atom.xml" rel="self"/>
+  
+  <link href="https://www.hack0day.net/"/>
+  <updated>2022-07-30T04:27:37.000Z</updated>
+  <id>https://www.hack0day.net/</id>
+  
+  <author>
+    <name>Attck</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>First Page</title>
+    <link href="https://www.hack0day.net/2022/07/29/First-Page/"/>
+    <id>https://www.hack0day.net/2022/07/29/First-Page/</id>
+    <published>2022-07-30T03:52:18.000Z</published>
+    <updated>2022-07-30T04:27:37.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h1><div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;title&quot;</span></span><br></pre></td></tr></table></figure></div><p>就会在<em>source/_posts/</em> 生成一个.md文件<br><em>tags</em>就是标签,多个tags这样排版</p><div class="highlight-wrap" data-rel=""><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tags:</span><br><span class="line"> - test1</span><br><span class="line"> - test2</span><br><span class="line"> ....</span><br></pre></td></tr></table></figure></div><h1 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h1><p>直接写*.md<em>文件<br>使用</em>markdown*语法</p><h1 id="删除文章直接删对应文件就行"><a href="#删除文章直接删对应文件就行" class="headerlink" title="删除文章直接删对应文件就行"></a>删除文章直接删对应文件就行</h1><p>文件路径<em>source/_posts/</em></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;新建文章&quot;&gt;&lt;a href=&quot;#新建文章&quot; class=&quot;headerlink&quot; title=&quot;新建文章&quot;&gt;&lt;/a&gt;新建文章&lt;/h1&gt;&lt;div class=&quot;highlight-wrap&quot; data-rel=&quot;&quot;&gt;&lt;figure class=&quot;iseeu high</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>

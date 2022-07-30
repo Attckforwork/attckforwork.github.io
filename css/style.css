@@ -522,6 +522,7 @@ body {
 }
 .content a.icon {
   background: none;
+  text-decoration: none;
 }
 .content a.icon:hover {
   color: #d480aa;
@@ -544,6 +545,8 @@ body {
 .content h4 a:hover,
 .content h5 a:hover,
 .content h6 a:hover {
+text-decoration: none;
+
   background-image: linear-gradient(transparent, transparent 6px, #d480aa 6px, #d480aa);
   background-position: bottom;
   background-size: 100% 6px;

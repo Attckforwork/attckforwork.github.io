@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="This php code was obtained during a code audit during my testing process. I was so excited when I saw this, I decided to copy it out for everyone to learn. KnowLedGePoint Count Error_reproting Sizeof">
+    <meta name="description" content="This php code was obtained during a code audit during my testing. I was very excited to see this, and decided to simulate it for everyone to learn. KnowLedGePoint Count Error_reproting Sizeof Strlen">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP CODE AUDIT - 0001 - AttckForWork">
-<meta property="og:url" content="https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/index.html">
+<meta property="og:url" content="https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/index.html">
 <meta property="og:site_name" content="Attck For Work">
-<meta property="og:description" content="This php code was obtained during a code audit during my testing process. I was so excited when I saw this, I decided to copy it out for everyone to learn. KnowLedGePoint Count Error_reproting Sizeof">
+<meta property="og:description" content="This php code was obtained during a code audit during my testing. I was very excited to see this, and decided to simulate it for everyone to learn. KnowLedGePoint Count Error_reproting Sizeof Strlen">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-07-31T16:33:02.000Z">
-<meta property="article:modified_time" content="2022-07-30T16:39:05.574Z">
+<meta property="article:modified_time" content="2022-07-30T16:42:48.929Z">
 <meta property="article:author" content="Attck">
 <meta property="article:tag" content="attack,pentest,pentester,redteam">
 <meta name="twitter:card" content="summary">
@@ -95,17 +95,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&text=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&is_video=false&description=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=PHP CODE AUDIT - 0001 - AttckForWork&body=Check out this article: https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&name=PHP CODE AUDIT - 0001 - AttckForWork&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&t=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&text=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&is_video=false&description=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PHP CODE AUDIT - 0001 - AttckForWork&body=Check out this article: https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&name=PHP CODE AUDIT - 0001 - AttckForWork&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&t=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -136,7 +136,7 @@
       
         <time datetime="2022-07-31T16:33:02.000Z" itemprop="datePublished">2022-07-31</time>
         
-        (Updated: <time datetime="2022-07-30T16:39:05.574Z" itemprop="dateModified">2022-07-30</time>)
+        (Updated: <time datetime="2022-07-30T16:42:48.929Z" itemprop="dateModified">2022-07-30</time>)
         
       
     </div>
@@ -151,7 +151,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>This php code was obtained during a code audit during my testing process. I was so excited when I saw this, I decided to copy it out for everyone to learn.</p>
+    <p>This php code was obtained during a code audit during my testing. I was very excited to see this, and decided to simulate it for everyone to learn.</p>
 <h4 id="KnowLedGePoint"><a href="#KnowLedGePoint" class="headerlink" title="KnowLedGePoint"></a>KnowLedGePoint</h4><ul>
 <li>Count</li>
 <li>Error_reproting</li>
@@ -201,17 +201,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&text=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&is_video=false&description=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=PHP CODE AUDIT - 0001 - AttckForWork&body=Check out this article: https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&name=PHP CODE AUDIT - 0001 - AttckForWork&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-0001-AttckForWork/&t=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&text=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&is_video=false&description=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PHP CODE AUDIT - 0001 - AttckForWork&body=Check out this article: https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&title=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&name=PHP CODE AUDIT - 0001 - AttckForWork&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.hack0day.net/2022/07/31/PHP-CODE-AUDIT-QUESTIONS-0001-AttckForWork/&t=PHP CODE AUDIT - 0001 - AttckForWork"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
